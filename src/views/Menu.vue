@@ -64,8 +64,12 @@
 
           <v-simple-table v-else>
             <p
-              style="text-align: center; padding: 20px; font-size: 25px;"
-            >No cupcakes in your basket yet :(</p>
+              style="text-align: center; 
+              padding: 16px; 
+              font-size: 21px; margin:0;"
+            >
+              <b>No cupcakes in your basket yet :(</b>
+            </p>
           </v-simple-table>
 
           <v-divider></v-divider>
@@ -73,19 +77,23 @@
             <v-col>
               <p>Subtotal:</p>
               <p>Delivery:</p>
-              <p>Total:</p>
+              <p>
+                <b style="font-size:16px;">Total:</b>
+              </p>
             </v-col>
             <v-col class="text-right">
               <p>{{ subtotal }} DKK</p>
-              <p>45</p>
+              <p v-if="basket.length > 0">45 DKK</p>
+              <p v-else>0 DKK</p>
               <p>
-                <b>{{ total }} DKK</b>
+                <b style="font-size:16px;" v-if="basket.length > 0">{{ total }} DKK</b>
+                <b v-else>0 DKK</b>
               </p>
             </v-col>
           </v-row>
           <v-row style="margin:0;">
             <v-spacer></v-spacer>
-            <v-btn style="margin:10px; background-color:#6a9c93; color:white;">Checkout</v-btn>
+            <v-btn style="margin:10px; background-color:#56cac2; color:white;">Checkout</v-btn>
           </v-row>
         </div>
       </v-col>
@@ -264,7 +272,7 @@ tr td {
 .theme--light.v-data-table
   tbody
   tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
-  background: #e6bccd5c;
+  background: #56cac25c;
 }
 
 #basket_checkout {
@@ -276,7 +284,7 @@ tr td {
 }
 
 .basket_btn {
-  color: #6a9c93 !important;
-  caret-color: #6a9c93 !important;
+  color: #e9e26b !important;
+  caret-color: #e9e26b !important;
 }
 </style>

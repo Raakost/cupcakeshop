@@ -3,9 +3,9 @@
     <v-layout>
       <v-navigation-drawer v-model="drawer" app>
         <ul>
-          <router-link tag="li" to="/">Home</router-link>
-          <router-link tag="li" to="/Menu">Menu</router-link>
-          <router-link tag="li" to="/About">About Us</router-link>
+          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/">Home</router-link>
+          <router-link style="color:#56cac2;" tag="li" to="/Menu">Menu</router-link>
+          <router-link style="color:#e9e26b;" tag="li" to="/About">About Us</router-link>
         </ul>
       </v-navigation-drawer>
 
@@ -24,9 +24,7 @@ export default {
   data() {
     return {
       drawer: true,
-      items: [
-       
-      ],
+      items: [],
       right: true
     };
   }
@@ -74,8 +72,5 @@ nav li i {
   margin-right: 10px;
 }
 
-nav li:last-child {
-  position: absolute;
-  bottom: 40px;
-}
+
 </style>

@@ -75,8 +75,8 @@ export default {
 }
 
 .info-box .col div {
-  background-color: #272b2c;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 5px 10px;
   font-family: "Lato", sans-serif;
   opacity: 95%;
