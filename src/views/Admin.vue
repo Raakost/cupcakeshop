@@ -1,16 +1,23 @@
 <template>
-  <v-container style="align-items: top;">
+  <v-container>
     <v-row>
-      <v-col offset-md="1" md="5">
-        <h1>Cupcake Menu</h1>
+      <v-col offset-md="1" md="6">
+        <h1>Cupcake menu items</h1>
         <div id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left pa-3" style="width:70%;">Name</th>
-                  <th class="text-left pa-3" style="width:15%;">Price</th>
-                  <th class="text-left pa-3" style="width:100%;">Add to basket</th>
+                  <th class="text-left" style="width:70%;">
+                    Name
+                    <v-btn color="green" small text to="/addNew">
+                      <v-icon>add</v-icon>
+                      <span style="padding:0 10px;">Add new menu item</span>
+                    </v-btn>
+                  </th>
+                  <th class="text-left pa-3" style="width:100%;">Price</th>
+                  <th class="text-left pa-3" style="width:100%;">Edit</th>
+                  <th class="text-left pa-3" style="width:100%;">Remove</th>
                 </tr>
               </thead>
               <tbody>
@@ -21,79 +28,19 @@
                   </td>
                   <td>{{ item.price }}</td>
                   <td>
-                    <v-btn text small v-on:click="addToBasket(item)">
-                      <v-icon class="basket_btn">add_box</v-icon>
+                    <v-btn text small>
+                      <v-icon color="#56cac2">edit</v-icon>
                     </v-btn>
                   </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </div>
-      </v-col>
-      <v-col offset-md="1" md="4">
-        <h1>Basket</h1>
-        <div id="info">
-          <v-simple-table id="menu-table" v-if="basket.length > 0">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left pa-3" style="width:30%;">Quantity</th>
-                  <th class="text-left pa-3" style="width:50%;">Name</th>
-                  <th class="text-left pa-3" style="width:20%;">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in basket" :key="item.name">
                   <td>
-                    <v-btn text small @click="decrease(item)">
-                      <v-icon class="basket_btn">indeterminate_check_box</v-icon>
-                    </v-btn>
-                    {{item.quantity}}
-                    <v-btn text small @click="increase(item)">
-                      <v-icon class="basket_btn">add_box</v-icon>
+                    <v-btn text small @click="deleteItem(item.id)">
+                      <v-icon color="red">delete</v-icon>
                     </v-btn>
                   </td>
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.price }}</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
-
-          <v-simple-table v-else>
-            <p
-              style="text-align: center; 
-              padding: 16px; 
-              font-size: 21px; margin:0;"
-            >
-              <b>No cupcakes in your basket yet :(</b>
-            </p>
-          </v-simple-table>
-
-          <v-divider></v-divider>
-          <v-row id="basket_checkout" class="mt-4" style="margin:0;">
-            <v-col>
-              <p>Subtotal:</p>
-              <p>Delivery:</p>
-              <p>
-                <b style="font-size:16px;">Total:</b>
-              </p>
-            </v-col>
-            <v-col class="text-right">
-              <p>{{ subtotal }} DKK</p>
-              <p v-if="basket.length > 0">45 DKK</p>
-              <p v-else>0 DKK</p>
-              <p>
-                <b style="font-size:16px;" v-if="basket.length > 0">{{ total }} DKK</b>
-                <b v-else>0 DKK</b>
-              </p>
-            </v-col>
-          </v-row>
-          <v-row style="margin:0;">
-            <v-spacer></v-spacer>
-            <v-btn style="margin:10px; background-color:#56cac2; color:white;">Checkout</v-btn>
-          </v-row>
         </div>
       </v-col>
     </v-row>
@@ -127,6 +74,14 @@ export default {
     });
   },
   methods: {
+    deleteItem(id) {
+      dbMenuAdd.doc(id).delete().then(function() {
+          console.log("Document successfully deleted!");
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
+    },
     addToBasket(item) {
       if (this.basket.find(arrayItem => item.name === arrayItem.name)) {
         item = this.basket.find(arrayItem => item.name === arrayItem.name);

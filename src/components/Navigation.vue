@@ -3,9 +3,11 @@
     <v-layout>
       <v-navigation-drawer v-model="drawer" app>
         <ul>
-          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/">Home</router-link>
-          <router-link style="color:#56cac2;" tag="li" to="/Menu">Menu</router-link>
-          <router-link style="color:#e9e26b;" tag="li" to="/About">About Us</router-link>
+          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/"><v-icon color="#e6bccd">home</v-icon>Home</router-link>
+          <router-link style="color:#56cac2;" tag="li" to="/Menu"><v-icon color="#56cac2">restaurant_menu</v-icon>Menu</router-link>
+          <router-link style="color:#e9e26b;" tag="li" to="/About"><v-icon color="#e9e26b">info</v-icon>About Us</router-link>
+          <router-link style="color:#e6bccd;" tag="li" to="/Login"><v-icon color="#e6bccd">lock</v-icon>Login</router-link>
+          <router-link style="color:#56cac2; position:absolute; bottom: 0;" tag="li" to="/Admin"><v-icon color="#56cac2">lock</v-icon>Admin</router-link>
         </ul>
       </v-navigation-drawer>
 
