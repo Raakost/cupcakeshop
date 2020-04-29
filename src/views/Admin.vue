@@ -4,7 +4,6 @@
       {{ updatedText }}
       <v-btn color="pink" text @click="updatedSuccess = false">Close</v-btn>
     </v-snackbar>
-
     <v-row>
       <v-col offset-md="1" md="6">
         <h1 style="text-align: right;">
@@ -15,12 +14,13 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left" style="width:70%;">
+                  <th class="text-left" style="width:20%;">
                     <v-btn style="background-color:#56cac2;" text color="#ffffff" to="/addNew">
                       <v-icon size="small">add</v-icon>
                       <span>Add new</span>
                     </v-btn>
                   </th>
+                  <th class="text-left pa-3" style="width:100%;">Name</th>
                   <th class="text-left pa-3" style="width:100%;">Price</th>
                   <th class="text-left pa-3" style="width:100%;">Edit</th>
                   <th class="text-left pa-3" style="width:100%;">Delete</th>
@@ -28,6 +28,9 @@
               </thead>
               <tbody>
                 <tr v-for="item in menuItems" :key="item.name">
+                  <td>
+                    <v-img id="td_image" v-bind:src="item.image"></v-img>
+                  </td>
                   <td>
                     <b>
                       <span id="td_name">{{ item.name }}</span>
@@ -67,6 +70,8 @@
                 outlined
               ></v-text-field>
               <v-text-field v-model="item.price" label="Price" placeholder="Price" outlined></v-text-field>
+              <v-img id="td_image" v-bind:src="item.image"></v-img>
+              <v-file-input id="td_edit_image" label="File input" @change="uploadImage"></v-file-input>
               <v-btn
                 @click="updateItem()"
                 @click.stop="dialog = false"
@@ -90,7 +95,7 @@
 
 
 <script>
-import { dbMenuAdd } from "../../firebase";
+import { dbMenuAdd, fb } from "../../firebase";
 
 export default {
   data() {
@@ -107,6 +112,28 @@ export default {
     this.$store.dispatch("setMenuItems");
   },
   methods: {
+    uploadImage(e) {
+      let file = e;
+      console.log(e);
+      var storageRef = fb.storage().ref("products/" + file.name);
+      let uploadTask = storageRef.put(file);
+      uploadTask.on(
+        "state_changed",
+        // eslint-disable-next-line no-unused-vars
+        snapshot => {},
+        error => {
+          console.error("Error updating document: ", error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.item.image = downloadURL;
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
+    },
     editItem(item) {
       this.item = item;
       this.activeEditItem = item.id;
@@ -116,10 +143,10 @@ export default {
         .doc(this.activeEditItem)
         .update(this.item)
         .then(() => {
-          this.updatedSuccess = true
+          this.updatedSuccess = true;
           console.log("Document successfully updated!");
         })
-        .catch(function(error) {
+        .catch(error => {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
@@ -128,10 +155,10 @@ export default {
       dbMenuAdd
         .doc(id)
         .delete()
-        .then(function() {
+        .then(() => {
           console.log("Document successfully deleted!");
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error("Error removing document: ", error);
         });
     },
@@ -243,6 +270,16 @@ tr td {
   font-weight: 200;
   color: map-get($colorz, lightgrey);
   font-family: "Lato", sans-serif;
+}
+
+#td_image {
+  max-width: 120px;
+  max-height: 120px;
+  padding: 0;
+}
+#td_edit_image {
+  max-width: 60px;
+  max-height: 60px;
 }
 
 .theme--light.v-data-table

@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 <template>
   <v-container>
     <v-row>
       <v-col offset-md="1" md="5">
-        <h1>Add new cupcake</h1>
+        <h1>Add cupcake</h1>
         <div id="info" class="pa-2">
           <v-col cols="12" sm="12" md="12">
             <v-text-field required v-model="name" label="Name" placeholder="Name" outlined></v-text-field>
@@ -18,6 +17,7 @@
             <v-file-input label="File input" @change="uploadImage"></v-file-input>
             <v-btn
               @click="addNewMenuItem"
+              :disabled="btnDisabled"
               style="background-color:#56cac2; margin-right:5px;"
               text
               color="#ffffff"
@@ -32,12 +32,18 @@
           <v-simple-table id="menu-table">
             <thead>
               <tr>
-                <th class="text-left" style="width:70%">Name</th>
+                <th class="text-left" style="width:20%">Image</th>
+                <th class="text-left" style="width:60%">Name</th>
                 <th class="text-left" style="width:100px">Price</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>
+                  <div v-if="image">
+                    <v-img id="td_image" v-bind:src="image"></v-img>
+                  </div>
+                </td>
                 <td>
                   <span id="td_name">{{ name }}</span>
                   <br />
@@ -62,25 +68,43 @@ export default {
     return {
       name: "",
       description: "",
-      price: ""
+      price: "",
+      image: null,
+      btnDisabled: true
     };
   },
   methods: {
     uploadImage(e) {
       let file = e;
       console.log(e);
-      // eslint-disable-next-line no-unused-vars
       var storageRef = fb.storage().ref("products/" + file.name);
-
-      // eslint-disable-next-line no-unused-vars
       let uploadTask = storageRef.put(file);
+      uploadTask.on(
+        "state_changed",
+        // eslint-disable-next-line no-unused-vars
+        snapshot => {},
+        error => {
+          console.error("Error updating document: ", error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.image = downloadURL;
+            this.btnDisabled = false;
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
     },
     addNewMenuItem() {
       dbMenuAdd.add({
         name: this.name,
         description: this.description,
-        price: this.price
+        price: this.price,
+        image: this.image
       });
+      this.$router.push("/admin");
     }
   }
 };
@@ -152,6 +176,12 @@ tr td {
   font-weight: 200;
   color: map-get($colorz, lightgrey);
   font-family: "Lato", sans-serif;
+}
+
+#td_image {
+  max-width: 80px;
+  max-height: 80px;
+  padding: 0;
 }
 
 .theme--light.v-data-table

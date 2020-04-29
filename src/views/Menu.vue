@@ -1,20 +1,24 @@
 <template>
-  <v-container style="align-items: top;">
+  <v-container grid-list-xs>
     <v-row>
-      <v-col offset-md="1" md="5">
+      <v-col offset-md="1" md="6">
         <h1>Cupcake Menu</h1>
         <div id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left pa-3" style="width:70%;">Name</th>
+                  <th></th>
+                  <th class="text-left pa-3" style="width:60%;">Name</th>
                   <th class="text-left pa-3" style="width:15%;">Price</th>
                   <th class="text-left pa-3" style="width:100%;">Add to basket</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in cupcakes" :key="item.name">
+                <tr v-for="item in menuItems" :key="item.name">
+                  <td>
+                    <v-img id="td_image" v-bind:src="item.image"></v-img>
+                  </td>
                   <td>
                     <b>
                       <span id="td_name">{{ item.name }}</span>
@@ -34,15 +38,15 @@
           </v-simple-table>
         </div>
       </v-col>
-      <v-col offset-md="1" md="4">
+      <v-col offset-md="1" md="3">
         <h1>Basket</h1>
         <div id="info">
           <v-simple-table id="menu-table" v-if="basket.length > 0">
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left pa-3" style="width:30%;">Quantity</th>
-                  <th class="text-left pa-3" style="width:50%;">Name</th>
+                  <th></th>
+                  <th class="text-left pa-3" style="width:30%;">Name</th>
                   <th class="text-left pa-3" style="width:20%;">Price</th>
                 </tr>
               </thead>
@@ -63,7 +67,6 @@
               </tbody>
             </template>
           </v-simple-table>
-
           <v-simple-table v-else>
             <p
               style="text-align: center; 
@@ -73,7 +76,6 @@
               <b>No cupcakes in your basket yet :(</b>
             </p>
           </v-simple-table>
-
           <v-divider></v-divider>
           <v-row id="basket_checkout" class="mt-4" style="margin:0;">
             <v-col>
@@ -105,29 +107,17 @@
 
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import { dbMenuAdd } from "../../firebase";
 
 export default {
   data() {
     return {
-      basketDump: [],
-      cupcakes: []
+      basketDump: []
     };
   },
-  created() {
-    dbMenuAdd.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        console.log(doc.id, "=>", doc.data());
-        var cupcakeMenuItems = doc.data();
-        //this.cupcakes.push(cupcakeMenuItems);
-        this.cupcakes.push({
-          id: doc.id,
-          name: cupcakeMenuItems.name,
-          description: cupcakeMenuItems.description,
-          price: cupcakeMenuItems.price
-        });
-      });
-    });
+  beforeCreate() {
+    this.$store.dispatch("setMenuItems");
   },
   methods: {
     addToBasket(item) {
@@ -162,6 +152,9 @@ export default {
   computed: {
     basket() {
       return this.$store.getters.getBasketItems;
+    },
+    menuItems() {
+      return this.$store.getters.getMenuItems;
     },
     subtotal() {
       var subtotal = 0;
@@ -245,6 +238,12 @@ tr td {
   font-weight: 200;
   color: map-get($colorz, lightgrey);
   font-family: "Lato", sans-serif;
+}
+
+#td_image {
+  max-width: 120px;
+  max-height: 120px;
+  padding: 0;
 }
 
 .theme--light.v-data-table

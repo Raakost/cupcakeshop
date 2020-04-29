@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Menu from '../views/Menu.vue'
 import Admin from '../views/Admin.vue'
+import Orders from '../views/Orders.vue'
 import AddNewItems from '../components/admin/AddNewItems.vue'
 import Login from '../components/admin/Login.vue'
 import firebase from 'firebase'
@@ -57,6 +58,14 @@ const router = new VueRouter({
       path: '*',
       redirect: '/'
     },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: Orders,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 });
 

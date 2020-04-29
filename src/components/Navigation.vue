@@ -21,12 +21,11 @@
             <v-icon color="#e6bccd">info</v-icon>About Us
           </router-link>
           <div v-if="currentUser">
-            <router-link
-              style="color:#e6bccd;"
-              tag="li"
-              to="/Admin"
-            >
+            <router-link style="color:#e6bccd;" tag="li" to="/Admin">
               <v-icon color="#e6bccd">lock_open</v-icon>Admin
+            </router-link>
+            <router-link style="color:#e6bccd;" tag="li" to="/Orders">
+              <v-icon color="#e6bccd">assignment</v-icon>Orders
             </router-link>
           </div>
           <router-link style="color:#e6bccd; position:absolute; bottom: 0;" tag="li" to="/Login">

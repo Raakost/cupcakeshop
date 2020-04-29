@@ -1,14 +1,14 @@
 <template>
   <v-container grid-list-xs>
     <v-row align-center class="info-box">
-      <v-col sm="2" xs ="12" offset-sm="9">
+      <v-col sm="2" xs="12" offset-sm="9">
         <h1>Cupcake</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-      <img src="../assets/cupcakes/2.jpg" alt />
+          <img src="../assets/1.jpg" />
         </div>
       </v-col>
     </v-row>
@@ -20,27 +20,27 @@
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-         <img src="../assets/cupcakes/2.jpg" alt />
+          <img src="../assets/2.jpg" />
         </div>
       </v-col>
-      <v-col sm="2" xs="12" >
+      <v-col sm="2" xs="12">
         <h1>Cupcake</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-          <img src="../assets/cupcakes/3.jpg" alt />
+          <img src="../assets/3.jpg" />
         </div>
       </v-col>
-      <v-col sm="2" xs="12" >
+      <v-col sm="2" xs="12">
         <h1>Cupcake</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-          <img src="../assets/cupcakes/9.jpg" alt />
+          <img src="../assets/4.jpg" alt />
         </div>
       </v-col>
     </v-row>
