@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col offset-md="3" md="6" xs="12">
-        <h1>Administrator Login</h1>
+        <h1>Login</h1>
         <div id="info" class="pa-2">
           <v-col cols="12" sm="12" md="12">
             <v-text-field required v-model="email" label="Email" placeholder="Email" outlined></v-text-field>

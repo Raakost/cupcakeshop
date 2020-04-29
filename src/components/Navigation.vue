@@ -2,15 +2,38 @@
   <div>
     <v-layout>
       <v-navigation-drawer v-model="drawer" app>
+        <div v-if="currentUser">
+          <v-row class="pa-2" style="margin-top:15px;" justify="space-around">
+            <v-avatar size="60px">
+              <img src="../assets/avatar.jpg" />
+            </v-avatar>
+          </v-row>
+          <h4 style="text-align:center;">{{ currentUser.email }}</h4>
+        </div>
         <ul>
-          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/"><v-icon color="#e6bccd">home</v-icon>Home</router-link>
-          <router-link style="color:#56cac2;" tag="li" to="/Menu"><v-icon color="#56cac2">restaurant_menu</v-icon>Menu</router-link>
-          <router-link style="color:#e9e26b;" tag="li" to="/About"><v-icon color="#e9e26b">info</v-icon>About Us</router-link>
-          <router-link style="color:#e6bccd;" tag="li" to="/Login"><v-icon color="#e6bccd">lock</v-icon>Login</router-link>
-          <router-link style="color:#56cac2; position:absolute; bottom: 0;" tag="li" to="/Admin"><v-icon color="#56cac2">lock</v-icon>Admin</router-link>
+          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/">
+            <v-icon color="#e6bccd">home</v-icon>Home
+          </router-link>
+          <router-link style="color:#e6bccd;" tag="li" to="/Menu">
+            <v-icon color="#e6bccd">restaurant_menu</v-icon>Menu
+          </router-link>
+          <router-link style="color:#e6bccd;" tag="li" to="/About">
+            <v-icon color="#e6bccd">info</v-icon>About Us
+          </router-link>
+          <div v-if="currentUser">
+            <router-link
+              style="color:#e6bccd;"
+              tag="li"
+              to="/Admin"
+            >
+              <v-icon color="#e6bccd">lock_open</v-icon>Admin
+            </router-link>
+          </div>
+          <router-link style="color:#e6bccd; position:absolute; bottom: 0;" tag="li" to="/Login">
+            <v-icon color="#e6bccd">lock</v-icon>
+          </router-link>
         </ul>
       </v-navigation-drawer>
-
       <v-app-bar app>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title class="headline">
@@ -22,13 +45,28 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import { db } from "../../firebase";
+import firebase from "firebase";
+import "firebase/firestore";
+import store from "../store/index.js";
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.dispatch("setUser", user);
+  } else {
+    store.dispatch("setUser", null);
+  }
+});
+
 export default {
-  data() {
-    return {
-      drawer: true,
-      items: [],
-      right: true
-    };
+  data: () => ({
+    drawer: null
+  }),
+  computed: {
+    currentUser() {
+      return this.$store.getters.getCurrentUser;
+    }
   }
 };
 </script>
@@ -73,6 +111,4 @@ nav li {
 nav li i {
   margin-right: 10px;
 }
-
-
 </style>

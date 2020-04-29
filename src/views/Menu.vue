@@ -16,7 +16,10 @@
               <tbody>
                 <tr v-for="item in cupcakes" :key="item.name">
                   <td>
-                    <span id="td_name">{{ item.name }}</span>
+                    <b>
+                      <span id="td_name">{{ item.name }}</span>
+                    </b>
+                    <br />
                     <span id="td_description">{{ item.description }}</span>
                   </td>
                   <td>{{ item.price }}</td>
@@ -65,7 +68,7 @@
             <p
               style="text-align: center; 
               padding: 16px; 
-              font-size: 21px; margin:0;"
+              font-size: 16px; margin:0;"
             >
               <b>No cupcakes in your basket yet :(</b>
             </p>
@@ -107,7 +110,7 @@ import { dbMenuAdd } from "../../firebase";
 export default {
   data() {
     return {
-      basket: [],
+      basketDump: [],
       cupcakes: []
     };
   },
@@ -128,7 +131,7 @@ export default {
   },
   methods: {
     addToBasket(item) {
-      if (this.basket.find(arrayItem => item.name === arrayItem.name)) {
+      /*   if (this.basket.find(arrayItem => item.name === arrayItem.name)) {
         item = this.basket.find(arrayItem => item.name === arrayItem.name);
         this.increase(item);
       } else {
@@ -137,7 +140,14 @@ export default {
           price: item.price,
           quantity: 1
         });
-      }
+      } */
+      this.basketDump.push({
+        name: item.name,
+        price: item.price,
+        quantity: 1
+      });
+      this.$store.commit("addBasketItems", this.basketDump);
+      this.basketDump = [];
     },
     increase(item) {
       item.quantity++;
@@ -150,6 +160,9 @@ export default {
     }
   },
   computed: {
+    basket() {
+      return this.$store.getters.getBasketItems;
+    },
     subtotal() {
       var subtotal = 0;
       for (var item in this.basket) {
@@ -237,7 +250,7 @@ tr td {
 .theme--light.v-data-table
   tbody
   tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
-  background: #56cac25c;
+  background: #984c6b1f;
 }
 
 #basket_checkout {
@@ -249,7 +262,7 @@ tr td {
 }
 
 .basket_btn {
-  color: #e9e26b !important;
-  caret-color: #e9e26b !important;
+  color: #56cac2 !important;
+  caret-color: #56cac2 !important;
 }
 </style>

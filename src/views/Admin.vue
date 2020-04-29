@@ -2,28 +2,30 @@
   <v-container>
     <v-row>
       <v-col offset-md="1" md="6">
-        <h1>Cupcake menu items</h1>
+        <h1 style="text-align: right;"><span></span>Cupcake menu</h1>
         <div id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
               <thead>
                 <tr>
                   <th class="text-left" style="width:70%;">
-                    Name
-                    <v-btn color="green" small text to="/addNew">
-                      <v-icon>add</v-icon>
-                      <span style="padding:0 10px;">Add new menu item</span>
+                    <v-btn style="background-color:#56cac2;" text color="#ffffff" to="/addNew">
+                      <v-icon size="small">add</v-icon>
+                      <span>Add new</span>
                     </v-btn>
                   </th>
                   <th class="text-left pa-3" style="width:100%;">Price</th>
                   <th class="text-left pa-3" style="width:100%;">Edit</th>
-                  <th class="text-left pa-3" style="width:100%;">Remove</th>
+                  <th class="text-left pa-3" style="width:100%;">Delete</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in cupcakes" :key="item.name">
                   <td>
-                    <span id="td_name">{{ item.name }}</span>
+                    <b>
+                      <span id="td_name">{{ item.name }}</span>
+                    </b>
+                    <br />
                     <span id="td_description">{{ item.description }}</span>
                   </td>
                   <td>{{ item.price }}</td>
@@ -34,7 +36,7 @@
                   </td>
                   <td>
                     <v-btn text small @click="deleteItem(item.id)">
-                      <v-icon color="red">delete</v-icon>
+                      <v-icon color="#56cac2">delete</v-icon>
                     </v-btn>
                   </td>
                 </tr>
@@ -75,7 +77,10 @@ export default {
   },
   methods: {
     deleteItem(id) {
-      dbMenuAdd.doc(id).delete().then(function() {
+      dbMenuAdd
+        .doc(id)
+        .delete()
+        .then(function() {
           console.log("Document successfully deleted!");
         })
         .catch(function(error) {
@@ -192,7 +197,7 @@ tr td {
 .theme--light.v-data-table
   tbody
   tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
-  background: #56cac25c;
+  background: #984c6b1f;
 }
 
 #basket_checkout {
@@ -204,7 +209,7 @@ tr td {
 }
 
 .basket_btn {
-  color: #e9e26b !important;
-  caret-color: #e9e26b !important;
+  color: #56cac2 !important;
+  caret-color: #56cac2 !important;
 }
 </style>
