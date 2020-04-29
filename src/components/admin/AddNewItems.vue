@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <v-container>
     <v-row>
@@ -14,6 +15,7 @@
               outlined
             ></v-text-field>
             <v-text-field required v-model="price" label="Price" placeholder="Price" outlined></v-text-field>
+            <v-file-input label="File input" @change="uploadImage"></v-file-input>
             <v-btn
               @click="addNewMenuItem"
               style="background-color:#56cac2; margin-right:5px;"
@@ -53,7 +55,7 @@
 
 
 <script>
-import { dbMenuAdd } from "../../../firebase";
+import { dbMenuAdd, fb } from "../../../firebase";
 
 export default {
   data() {
@@ -64,6 +66,15 @@ export default {
     };
   },
   methods: {
+    uploadImage(e) {
+      let file = e;
+      console.log(e);
+      // eslint-disable-next-line no-unused-vars
+      var storageRef = fb.storage().ref("products/" + file.name);
+
+      // eslint-disable-next-line no-unused-vars
+      let uploadTask = storageRef.put(file);
+    },
     addNewMenuItem() {
       dbMenuAdd.add({
         name: this.name,

@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-snackbar v-model="updatedSuccess">
+      {{ updatedText }}
+      <v-btn color="pink" text @click="updatedSuccess = false">Close</v-btn>
+    </v-snackbar>
+
     <v-row>
       <v-col offset-md="1" md="6">
         <h1 style="text-align: right;">
@@ -93,7 +98,9 @@ export default {
       basket: [],
       dialog: false,
       item: [],
-      activeEditItem: null
+      activeEditItem: null,
+      updatedSuccess: false,
+      updatedText: "Cupcake has been updated!"
     };
   },
   beforeCreate() {
@@ -105,8 +112,11 @@ export default {
       this.activeEditItem = item.id;
     },
     updateItem() {
-      dbMenuAdd.doc(this.activeEditItem).update(this.item)
+      dbMenuAdd
+        .doc(this.activeEditItem)
+        .update(this.item)
         .then(() => {
+          this.updatedSuccess = true
           console.log("Document successfully updated!");
         })
         .catch(function(error) {
