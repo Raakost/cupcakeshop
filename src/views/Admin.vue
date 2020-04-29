@@ -2,7 +2,9 @@
   <v-container>
     <v-row>
       <v-col offset-md="1" md="6">
-        <h1 style="text-align: right;"><span></span>Cupcake menu</h1>
+        <h1 style="text-align: right;">
+          <span></span>Cupcake menu
+        </h1>
         <div id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
@@ -20,7 +22,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in cupcakes" :key="item.name">
+                <tr v-for="item in menuItems" :key="item.name">
                   <td>
                     <b>
                       <span id="td_name">{{ item.name }}</span>
@@ -30,7 +32,7 @@
                   </td>
                   <td>{{ item.price }}</td>
                   <td>
-                    <v-btn text small>
+                    <v-btn text small @click.stop="dialog = true" @click="editItem(item)">
                       <v-icon color="#56cac2">edit</v-icon>
                     </v-btn>
                   </td>
@@ -46,6 +48,38 @@
         </div>
       </v-col>
     </v-row>
+    <v-row>
+      <v-dialog v-model="dialog" max-width="400">
+        <v-card>
+          <h1>Edit cupcake</h1>
+          <div id="info" class="pa-5">
+            <v-col cols="12" sm="12" md="12">
+              <v-text-field v-model="item.name" label="Name" placeholder="Name" outlined></v-text-field>
+              <v-text-field
+                v-model="item.description"
+                label="Description"
+                placeholder="Description"
+                outlined
+              ></v-text-field>
+              <v-text-field v-model="item.price" label="Price" placeholder="Price" outlined></v-text-field>
+              <v-btn
+                @click="updateItem()"
+                @click.stop="dialog = false"
+                style="background-color:#56cac2; margin-right:5px;"
+                text
+                color="#ffffff"
+              >Edit</v-btn>
+              <v-btn
+                style="background-color:#56cac2;"
+                text
+                color="#ffffff"
+                @click.stop="dialog = false"
+              >Close</v-btn>
+            </v-col>
+          </div>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
@@ -57,25 +91,29 @@ export default {
   data() {
     return {
       basket: [],
-      cupcakes: []
+      dialog: false,
+      item: [],
+      activeEditItem: null
     };
   },
-  created() {
-    dbMenuAdd.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        console.log(doc.id, "=>", doc.data());
-        var cupcakeMenuItems = doc.data();
-        //this.cupcakes.push(cupcakeMenuItems);
-        this.cupcakes.push({
-          id: doc.id,
-          name: cupcakeMenuItems.name,
-          description: cupcakeMenuItems.description,
-          price: cupcakeMenuItems.price
-        });
-      });
-    });
+  beforeCreate() {
+    this.$store.dispatch("setMenuItems");
   },
   methods: {
+    editItem(item) {
+      this.item = item;
+      this.activeEditItem = item.id;
+    },
+    updateItem() {
+      dbMenuAdd.doc(this.activeEditItem).update(this.item)
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+    },
     deleteItem(id) {
       dbMenuAdd
         .doc(id)
@@ -110,6 +148,9 @@ export default {
     }
   },
   computed: {
+    menuItems() {
+      return this.$store.getters.getMenuItems;
+    },
     subtotal() {
       var subtotal = 0;
       for (var item in this.basket) {

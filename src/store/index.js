@@ -1,14 +1,18 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { dbMenuAdd, db } from '../../firebase'
+import firebase from 'firebase'
+import 'firebase/firestore'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     basketItems: [],
+    menuItems: [],
     currentUser: null
   },
-  //mutations use state
   mutations: {
     addBasketItems: (state, basketItems) => {
       if (basketItems instanceof Array) {
@@ -32,19 +36,37 @@ export default new Vuex.Store({
       } else {
         state.currentUser = null
       }
+    },
+    setMenuItems: state => {
+      let menuItems = []
+
+      dbMenuAdd.onSnapshot((snapshopItems) => {
+        menuItems = []
+        snapshopItems.forEach((doc) => {
+          var menuItemData = doc.data();
+          menuItems.push({
+            ...menuItemData,
+            id: doc.id
+          })
+        })
+        state.menuItems = menuItems
+      })
     }
   },
-  // actions use context
   actions: {
     setUser(context, user) {
       context.commit('userStatus', user)
+    },
+    setMenuItems: context => {
+      context.commit('setMenuItems')
     }
   },
   modules: {
   },
   getters: {
     getBasketItems: state => state.basketItems,
-    getCurrentUser: state => state.currentUser
+    getCurrentUser: state => state.currentUser,
+    getMenuItems: state => state.menuItems
   }
 
 })
