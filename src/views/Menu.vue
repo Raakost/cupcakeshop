@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xs>
     <v-row>
-      <v-col offset-md="1" md="6">
+      <v-col offset-md="1" md="5">
         <h1>Cupcake Menu</h1>
         <div id="info">
           <v-simple-table id="menu-table">
@@ -38,7 +38,7 @@
           </v-simple-table>
         </div>
       </v-col>
-      <v-col offset-md="1" md="3">
+      <v-col offset-md="1" md="4">
         <h1>Basket</h1>
         <div id="info">
           <v-simple-table id="menu-table" v-if="basket.length > 0">
@@ -97,7 +97,10 @@
           </v-row>
           <v-row style="margin:0;">
             <v-spacer></v-spacer>
-            <v-btn style="margin:10px; background-color:#56cac2; color:white;">Checkout</v-btn>
+            <v-btn
+              style="margin:10px; background-color:#56cac2; color:white;"
+              @click="addCheckoutItem()"
+            >Checkout</v-btn>
           </v-row>
         </div>
       </v-col>
@@ -120,6 +123,9 @@ export default {
     this.$store.dispatch("setMenuItems");
   },
   methods: {
+    addCheckoutItem() {
+      this.$store.dispatch("setCheckoutItem");
+    },
     addToBasket(item) {
       /*   if (this.basket.find(arrayItem => item.name === arrayItem.name)) {
         item = this.basket.find(arrayItem => item.name === arrayItem.name);

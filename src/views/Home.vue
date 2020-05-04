@@ -1,46 +1,34 @@
 <template>
   <v-container grid-list-xs>
-    <v-row align-center class="info-box">
-      <v-col sm="2" xs="12" offset-sm="9">
-        <h1>Cupcake</h1>
+    <v-row class="info-box">
+      <v-col sm="3" xs="12" offset-sm="1">
+        <h1>Visit our lovely store</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-          <img src="../assets/1.jpg" />
+          <img src="../assets/13377.jpg" />
         </div>
       </v-col>
-    </v-row>
-    <v-row align-center class="info-box">
-      <v-col sm="2" xs="12" offset-sm="1">
-        <h1>Cupcake</h1>
+      <v-col sm="3" xs="12">
+        <h1>Cupcakes for any occasion</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-          <img src="../assets/2.jpg" />
+          <img src="../assets/133777.jpg" />
         </div>
       </v-col>
-      <v-col sm="2" xs="12">
-        <h1>Cupcake</h1>
+      <v-col sm="3" xs="12">
+        <h1>Cupcakes</h1>
         <div>
           <p>
             We wanna share our love of baking -
             <br />Try some, or all of our amazing cupcakes!
           </p>
-          <img src="../assets/3.jpg" />
-        </div>
-      </v-col>
-      <v-col sm="2" xs="12">
-        <h1>Cupcake</h1>
-        <div>
-          <p>
-            We wanna share our love of baking -
-            <br />Try some, or all of our amazing cupcakes!
-          </p>
-          <img src="../assets/4.jpg" alt />
+          <img src="../assets/1337.jpg" alt />
         </div>
       </v-col>
     </v-row>
@@ -48,9 +36,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: "Home",
   components: {}
