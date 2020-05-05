@@ -16,13 +16,12 @@
             <v-text-field required v-model="price" label="Price" placeholder="Price" outlined></v-text-field>
             <v-file-input label="File input" @change="uploadImage"></v-file-input>
             <v-btn
+              class="add_btn"
               @click="addNewMenuItem"
               :disabled="btnDisabled"
-              style="background-color:#56cac2; margin-right:5px;"
               text
-              color="#ffffff"
             >Add</v-btn>
-            <v-btn style="background-color:#56cac2;" text color="#ffffff">Cancel</v-btn>
+            <v-btn class="add_btn" text>Cancel</v-btn>
           </v-col>
         </div>
       </v-col>
@@ -111,6 +110,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-btn.add_btn {
+  @include button_mixin(#56cac2, #ffffff, 0);
+  margin-right:5px;
+}
 .col h1 {
   @include infobox_mixin(
     3px,

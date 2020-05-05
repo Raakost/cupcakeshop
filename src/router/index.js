@@ -6,6 +6,8 @@ import Admin from '../views/Admin.vue'
 import Orders from '../views/Orders.vue'
 import AddNewItems from '../components/admin/AddNewItems.vue'
 import Login from '../components/admin/Login.vue'
+import Infobox from '../components/Infobox.vue'
+import Listbox from '../components/Listbox.vue'
 import firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -65,6 +67,16 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/infobox',
+      name: 'infobox',
+      component: Infobox
+    },
+    {
+      path: '/listbox',
+      name: 'listbox',
+      component: Listbox
     }
   ]
 });

@@ -98,7 +98,8 @@
           <v-row style="margin:0;">
             <v-spacer></v-spacer>
             <v-btn
-              style="margin:10px; background-color:#56cac2; color:white;"
+            text
+              style="margin:10px; background-color:#56cac2; color:white; border-radius:0"
               @click="addCheckoutItem()"
             >Checkout</v-btn>
           </v-row>

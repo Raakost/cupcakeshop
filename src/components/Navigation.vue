@@ -2,16 +2,35 @@
   <div>
     <v-layout>
       <v-navigation-drawer v-model="drawer" app>
-        <div v-if="currentUser">
-          <v-row class="pa-2" style="margin-top:15px;" justify="space-around">
-            <v-avatar size="60px">
-              <img src="../assets/avatar.jpg" />
-            </v-avatar>
-          </v-row>
-          <h4 style="text-align:center;">{{ currentUser.email }}</h4>
-        </div>
         <ul>
-          <router-link style="color:#e6bccd; margin-top:80px;" tag="li" to="/">
+          <!-- Avatar -->
+          <div v-if="currentUser">
+            <v-row class="pa-2" style="margin-top:20px;" justify="space-around">
+              <v-avatar size="90px">
+                <img src="../assets/avatar.jpg" />
+              </v-avatar>
+            </v-row>
+            <h3 style="text-align:center; padding-bottom:20px;">{{ currentUser.email }}</h3>
+            <!-- Edit Menu -->
+            <hr style="margin-top:10px; border-color:#e6bccd;" />
+            <router-link style="color:#e6bccd; margin-top:50px;" tag="li" to="/Admin">
+              <v-icon color="#e6bccd">edit</v-icon>Edit Menu
+            </router-link>
+            <!-- Orders -->
+            <router-link style="color:#e6bccd;" tag="li" to="/Orders">
+              <v-icon color="#e6bccd">assignment</v-icon>Orders
+            </router-link>
+            <hr style="margin-top:50px; border-color:#e6bccd;" />
+            <!-- login/sign out -->
+            <router-link
+              style="color:#e6bccd; position:absolute; bottom: 15px;"
+              tag="li"
+              to="/Login"
+            >
+              <v-icon color="#e6bccd">lock_open</v-icon>Sign out
+            </router-link>
+          </div>
+          <router-link style="color:#e6bccd; margin-top:50px;" tag="li" to="/">
             <v-icon color="#e6bccd">home</v-icon>Home
           </router-link>
           <router-link style="color:#e6bccd;" tag="li" to="/Menu">
@@ -20,17 +39,15 @@
           <router-link style="color:#e6bccd;" tag="li" to="/About">
             <v-icon color="#e6bccd">info</v-icon>About Us
           </router-link>
-          <div v-if="currentUser">
-            <router-link style="color:#e6bccd;" tag="li" to="/Admin">
-              <v-icon color="#e6bccd">lock_open</v-icon>Admin
-            </router-link>
-            <router-link style="color:#e6bccd;" tag="li" to="/Orders">
-              <v-icon color="#e6bccd">assignment</v-icon>Orders
+          <div v-if="!currentUser">
+            <router-link
+              style="color:#e6bccd; position:absolute; bottom: 15px;"
+              tag="li"
+              to="/Login"
+            >
+              <v-icon color="#e6bccd">lock</v-icon>Login
             </router-link>
           </div>
-          <router-link style="color:#e6bccd; position:absolute; bottom: 0;" tag="li" to="/Login">
-            <v-icon color="#e6bccd">lock</v-icon>
-          </router-link>
         </ul>
       </v-navigation-drawer>
       <v-app-bar app>

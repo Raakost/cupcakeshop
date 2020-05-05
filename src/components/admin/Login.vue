@@ -13,18 +13,8 @@
               placeholder="Password"
               outlined
             ></v-text-field>
-            <v-btn
-              @click.prevent="login()"
-              style="background-color:#56cac2; margin-right:10px;"
-              text
-              color="#ffffff"
-            >Login</v-btn>
-            <v-btn
-              @click.prevent="signOut()"
-              style="background-color:#56cac2;"
-              text
-              color="#ffffff"
-            >Sign Out</v-btn>
+            <v-btn @click.prevent="login()" text class="add_btn">Login</v-btn>
+            <v-btn @click.prevent="signOut()" text class="add_btn">Sign Out</v-btn>
           </v-col>
         </div>
       </v-col>
@@ -77,4 +67,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-btn.add_btn {
+  @include button_mixin(#56cac2, #ffffff, 0);
+  margin-right: 5px;
+}
 </style>
