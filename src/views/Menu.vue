@@ -98,10 +98,10 @@
           <v-row style="margin:0;">
             <v-spacer></v-spacer>
             <v-btn
-            text
+              text
               style="margin:10px; background-color:#56cac2; color:white; border-radius:0"
-              @click="addCheckoutItem()"
-            >Checkout</v-btn>
+              @click="checkout()"
+            >Proceed to Checkout</v-btn>
           </v-row>
         </div>
       </v-col>
@@ -117,34 +117,24 @@ import { dbMenuAdd } from "../../firebase";
 export default {
   data() {
     return {
-      basketDump: []
+      tempBasket: []
     };
   },
   beforeCreate() {
     this.$store.dispatch("setMenuItems");
   },
   methods: {
-    addCheckoutItem() {
-      this.$store.dispatch("setCheckoutItem");
+    checkout() {
+      this.$store.dispatch("setCheckoutItems");
     },
     addToBasket(item) {
-      /*   if (this.basket.find(arrayItem => item.name === arrayItem.name)) {
-        item = this.basket.find(arrayItem => item.name === arrayItem.name);
-        this.increase(item);
-      } else {
-        this.basket.push({
-          name: item.name,
-          price: item.price,
-          quantity: 1
-        });
-      } */
-      this.basketDump.push({
+      this.tempBasket.push({
         name: item.name,
         price: item.price,
         quantity: 1
       });
-      this.$store.commit("addBasketItems", this.basketDump);
-      this.basketDump = [];
+      this.$store.commit("addBasketItems", this.tempBasket);
+      this.tempBasket = [];
     },
     increase(item) {
       item.quantity++;

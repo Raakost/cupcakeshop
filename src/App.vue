@@ -2,7 +2,7 @@
   <v-app id="app">
     <navigation />
     <v-content>
-      <v-container fluid>
+         <v-container class="fill-height" fluid>
         <router-view></router-view>
       </v-container>
     </v-content>

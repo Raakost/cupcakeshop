@@ -2,12 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Menu from '../views/Menu.vue'
+import Checkout from '../views/Checkout.vue'
 import Admin from '../views/Admin.vue'
 import Orders from '../views/Orders.vue'
+import EditHome from '../views/EditHome.vue'
+import EditAbout from '../views/EditAbout.vue'
 import AddNewItems from '../components/admin/AddNewItems.vue'
 import Login from '../components/admin/Login.vue'
 import Infobox from '../components/Infobox.vue'
 import Listbox from '../components/Listbox.vue'
+
 import firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -30,10 +34,12 @@ const router = new VueRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+      component: () => import( '../views/About.vue')
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout
     },
     {
       path: '/admin',
@@ -77,6 +83,22 @@ const router = new VueRouter({
       path: '/listbox',
       name: 'listbox',
       component: Listbox
+    },
+    {
+      path: '/edithome',
+      name: 'edithome',
+      component: EditHome,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/editabout',
+      name: 'editabout',
+      component: EditAbout,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

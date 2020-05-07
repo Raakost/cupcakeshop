@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-row class="info-box">
-      <v-col xs="12" sm="3" md="3" v-for="item in aboutBoxes" v-bind:key="item">
+      <v-col xs="12" sm="3" md="3" v-for="item in aboutBoxes" v-bind:key="item.title">
         <listbox style="white-space: pre-wrap;" v-bind:title="item.title" v-bind:list="item.list"></listbox>
       </v-col>
     </v-row>

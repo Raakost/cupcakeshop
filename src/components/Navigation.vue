@@ -11,10 +11,18 @@
               </v-avatar>
             </v-row>
             <h3 style="text-align:center; padding-bottom:20px;">{{ currentUser.email }}</h3>
-            <!-- Edit Menu -->
+            <!-- Edit Home -->
             <hr style="margin-top:10px; border-color:#e6bccd;" />
-            <router-link style="color:#e6bccd; margin-top:50px;" tag="li" to="/Admin">
-              <v-icon color="#e6bccd">edit</v-icon>Edit Menu
+            <router-link style="color:#e6bccd; margin-top:50px;" tag="li" to="/EditHome">
+              <v-icon color="#e6bccd">edit</v-icon>Home
+            </router-link>
+            <!-- Edit Menu -->
+            <router-link style="color:#e6bccd;" tag="li" to="/Admin">
+              <v-icon color="#e6bccd">edit</v-icon>Menu
+            </router-link>
+            <!-- Edit About -->
+            <router-link style="color:#e6bccd;" tag="li" to="/EditAbout">
+              <v-icon color="#e6bccd">edit</v-icon>About
             </router-link>
             <!-- Orders -->
             <router-link style="color:#e6bccd;" tag="li" to="/Orders">
@@ -30,12 +38,19 @@
               <v-icon color="#e6bccd">lock_open</v-icon>Sign out
             </router-link>
           </div>
-          <router-link style="color:#e6bccd; margin-top:50px;" tag="li" to="/">
+          <!-- Home -->
+          <router-link style="color:#e6bccd; margin-top:100px;" tag="li" to="/">
             <v-icon color="#e6bccd">home</v-icon>Home
           </router-link>
+          <!-- Menu -->
           <router-link style="color:#e6bccd;" tag="li" to="/Menu">
             <v-icon color="#e6bccd">restaurant_menu</v-icon>Menu
           </router-link>
+          <!-- Checkout -->
+          <router-link style="color:#e6bccd;" tag="li" to="/Checkout">
+            <v-icon color="#e6bccd">shopping_cart</v-icon>Checkout
+          </router-link>
+          <!-- About -->
           <router-link style="color:#e6bccd;" tag="li" to="/About">
             <v-icon color="#e6bccd">info</v-icon>About Us
           </router-link>

@@ -16,14 +16,15 @@ export default new Vuex.Store({
     currentUser: null
   },
   mutations: {
-    addCheckoutItem: (state, basketItems) => {
+    addCheckoutItems: (state, basketItems) => {
       dbOrders.add({
         archive: false,
         storeOrder: false,
         orderNo: state.counter++,
         status: 'incomplete',
         orderLines: state.basketItems
-      })
+      });
+      state.basketItems = [];
     },
     addBasketItems: (state, basketItems) => {
       if (basketItems instanceof Array) {
@@ -48,6 +49,7 @@ export default new Vuex.Store({
         state.currentUser = null
       }
     },
+    //
     setMenuItems: state => {
       let menuItems = []
 
@@ -80,8 +82,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setCheckoutItem: context => {
-      context.commit('addCheckoutItem')
+    setCheckoutItems: context => {
+      context.commit('addCheckoutItems')
     },
     setUser(context, user) {
       context.commit('userStatus', user)

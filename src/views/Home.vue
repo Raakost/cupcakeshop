@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import Infobox from "../components/Infobox.vue";
 export default {
   data() {
