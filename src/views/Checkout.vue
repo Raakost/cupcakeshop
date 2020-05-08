@@ -1,41 +1,37 @@
 <template>
   <v-container grid-list-xs>
-    <v-row>
-      <v-col offset-md="1" md="5">
-        <h1>Cupcake Menu</h1>
-        <div id="info">
-          <v-simple-table id="menu-table">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th class="text-left pa-3" style="width:60%;">Name</th>
-                  <th class="text-left pa-3" style="width:15%;">Price</th>
-                  <th class="text-left pa-3" style="width:100%;">Add to basket</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in menuItems" :key="item.name">
-                  <td>
-                    <v-img id="td_image" v-bind:src="item.image"></v-img>
-                  </td>
-                  <td>
-                    <b>
-                      <span id="td_name">{{ item.name }}</span>
-                    </b>
-                    <br />
-                    <span id="td_description">{{ item.description }}</span>
-                  </td>
-                  <td>{{ item.price }}</td>
-                  <td>
-                    <v-btn text small v-on:click="addToBasket(item)">
-                      <v-icon class="basket_btn">add_box</v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
+    <v-row class>
+      <v-col offset-md="1" md="5" xs="12">
+        <h1>Checkout</h1>
+        <div id="info" class="pa-2">
+          <v-col cols="12" sm="12" md="12">
+            <v-text-field required v-model="name" label="Name" placeholder="Name" outlined></v-text-field>
+            <v-text-field
+              required
+              v-model="address"
+              label="Streetname & No"
+              placeholder="Streetname & No"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              style="display:inline-block; width:40%; margin-right:2%;"
+              required
+              v-model="zipcode"
+              label="Zipcode"
+              placeholder="Zipcode"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              style="display:inline-block; width:58%;"
+              required
+              v-model="city"
+              label="City"
+              placeholder="City"
+              outlined
+            ></v-text-field>
+            <br />
+            <v-btn text class="add_btn">Checkout</v-btn>
+          </v-col>
         </div>
       </v-col>
       <v-col offset-md="1" md="4">
@@ -45,37 +41,21 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th></th>
+                  <th class="text-left pa-3" style="width:30%;">Quantity</th>
                   <th class="text-left pa-3" style="width:30%;">Name</th>
                   <th class="text-left pa-3" style="width:20%;">Price</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in basket" :key="item.name">
-                  <td>
-                    <v-btn text small @click="decrease(item)">
-                      <v-icon class="basket_btn">indeterminate_check_box</v-icon>
-                    </v-btn>
-                    {{item.quantity}}
-                    <v-btn text small @click="increase(item)">
-                      <v-icon class="basket_btn">add_box</v-icon>
-                    </v-btn>
-                  </td>
+                  <td>{{ item.quantity }}</td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.price }}</td>
                 </tr>
               </tbody>
             </template>
           </v-simple-table>
-          <v-simple-table v-else>
-            <p
-              style="text-align: center; 
-              padding: 16px; 
-              font-size: 16px; margin:0;"
-            >
-              <b>No cupcakes in your basket yet :(</b>
-            </p>
-          </v-simple-table>
+          <v-simple-table v-else></v-simple-table>
           <v-divider></v-divider>
           <v-row id="basket_checkout" class="mt-4" style="margin:0;">
             <v-col>
@@ -95,19 +75,12 @@
               </p>
             </v-col>
           </v-row>
-          <v-row style="margin:0;">
-            <v-spacer></v-spacer>
-            <v-btn
-              text
-              style="margin:10px; background-color:#56cac2; color:white; border-radius:0"
-              @click="checkout()"
-            >Proceed to Checkout</v-btn>
-          </v-row>
         </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
+
 
 <script>
 // eslint-disable-next-line no-unused-vars
@@ -120,7 +93,7 @@ export default {
     };
   },
   beforeCreate() {
-    this.$store.dispatch("setMenuItems");
+    // this.$store.dispatch("setMenuItems");
   },
   methods: {
     checkout() {

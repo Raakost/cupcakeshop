@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-btn.add_btn {
   @include button_mixin(#56cac2, #ffffff, 0);
   margin-right: 5px;

@@ -147,7 +147,7 @@ import { dbMenuAdd, dbOrders } from "../../firebase";
 export default {
   data() {
     return {
-      
+      tempBasket: []
     };
   },
   beforeCreate() {
