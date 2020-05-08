@@ -68,7 +68,7 @@
               </thead>
               <tbody class="font-weight-light">
                 <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
-                <tr v-for="item in orderItems" :key="item.name" v-if="item.storeOrder == false">
+                <tr v-for="item in orderItems" :key="item.name" v-if="item.archive == false">
                   <td>{{ item.orderNo }}</td>
                   <td>
                     <p v-for="subitem in item.orderLines" :key="subitem.id">{{ subitem.quantity }}</p>
@@ -177,8 +177,7 @@ export default {
       dbOrders
         .doc(id)
         .update({
-          archive: true,
-          storeOrder: true
+          archive: true
         })
         .then(() => {});
     },

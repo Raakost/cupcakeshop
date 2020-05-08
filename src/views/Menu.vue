@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     checkout() {
-      this.$store.dispatch("setCheckoutItems");
+      this.$router.push("/checkout");
     },
     addToBasket(item) {
       this.tempBasket.push({

@@ -30,7 +30,7 @@
               outlined
             ></v-text-field>
             <br />
-            <v-btn text class="add_btn">Checkout</v-btn>
+            <v-btn @click="checkout()" text class="add_btn">Checkout</v-btn>
           </v-col>
         </div>
       </v-col>
@@ -83,47 +83,30 @@
 
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import { dbMenuAdd } from "../../firebase";
 
 export default {
   data() {
     return {
-      tempBasket: []
+      tempBasket: [],
+      name: "",
+      address: "",
+      zipcode: "",
+      city: ""
     };
-  },
-  beforeCreate() {
-    // this.$store.dispatch("setMenuItems");
   },
   methods: {
     checkout() {
-      this.$store.dispatch("setCheckoutItems");
-    },
-    addToBasket(item) {
-      this.tempBasket.push({
-        name: item.name,
-        price: item.price,
-        quantity: 1
+      this.$store.dispatch("setCheckoutItems", {
+        name: this.name,
+        address: this.address,
+        zipcode: this.zipcode,
+        city: this.city
       });
-      this.$store.commit("addBasketItems", this.tempBasket);
-      this.tempBasket = [];
-    },
-    increase(item) {
-      item.quantity++;
-    },
-    decrease(item) {
-      item.quantity--;
-      if (item.quantity <= 0) {
-        this.basket.splice(this.basket.indexOf(item), 1);
-      }
     }
   },
   computed: {
     basket() {
       return this.$store.getters.getBasketItems;
-    },
-    menuItems() {
-      return this.$store.getters.getMenuItems;
     },
     subtotal() {
       var subtotal = 0;
