@@ -13,8 +13,7 @@
               placeholder="Password"
               outlined
             ></v-text-field>
-            <v-btn @click.prevent="login()" text class="add_btn">Login</v-btn>
-            <v-btn @click.prevent="signOut()" text class="add_btn">Sign Out</v-btn>
+            <v-btn @click.prevent="login()" text class="add_btn">Login</v-btn>            
           </v-col>
         </div>
       </v-col>
@@ -35,7 +34,6 @@ export default {
   },
   methods: {
     login() {
-      //console.log(this.email, this.password);
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
@@ -53,15 +51,6 @@ export default {
           console.log(error);
         });
     },
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          alert("You are now logged out!");
-          this.$router.replace("/Login");
-        });
-    }
   }
 };
 </script>

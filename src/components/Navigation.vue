@@ -30,13 +30,14 @@
             </router-link>
             <hr style="margin-top:50px; border-color:#e6bccd;" />
             <!-- login/sign out -->
-            <router-link
-              style="color:#e6bccd; position:absolute; bottom: 15px;"
-              tag="li"
-              to="/Login"
+            <a
+              class="aStyle"
+              href="#"
+              v-if="currentUser"
+              @click.prevent.stop="signOut()"
             >
-              <v-icon color="#e6bccd">lock_open</v-icon>Sign out
-            </router-link>
+              <v-icon color="#e6bccd">lock_open</v-icon> Sign out
+            </a>
           </div>
           <!-- Home -->
           <router-link style="color:#e6bccd; margin-top:100px;" tag="li" to="/">
@@ -94,6 +95,17 @@ export default {
   data: () => ({
     drawer: null
   }),
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          alert("You are about to be logged out");
+          this.$router.replace("/Home");
+        });
+    }
+  },
   computed: {
     currentUser() {
       return this.$store.getters.getCurrentUser;
@@ -141,5 +153,16 @@ nav li {
 
 nav li i {
   margin-right: 10px;
+}
+.aStyle {
+  position: absolute;
+  bottom: 15px;
+  color: #e6bccd;
+  margin-left: 15%;
+  padding: 5px 20px;
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  text-decoration: none;
 }
 </style>

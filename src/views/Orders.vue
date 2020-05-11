@@ -3,7 +3,7 @@
   <v-container grid-list-xs>
     <v-row>
       <!-- info box -->
-      <v-col offset-md="1" md="5">
+      <v-col offset-md="1" offset-lg="1" lg="5" md="10" sm="12" xs="12">
         <h1 style="text-align:left">Info</h1>
         <div id="info" class="pa-2">
           <v-row class="ma-0">
@@ -13,7 +13,7 @@
                   style="margin-left:10px; opacity:70%;"
                   id="status_box"
                   class="incomplete"
-                >Not started</div>
+                >Imcomplete</div>
                 <span class="font-weight-light caption pl-1 pa-2">Not started yet</span>
               </v-row>
               <v-row align="center">
@@ -50,6 +50,9 @@
             </v-col>
           </v-row>
         </div>
+      </v-col>
+
+      <v-col offset-md="1" offset-lg="1" lg="10" md="10" sm="12" xs="12">
         <!-- Orders -->
         <h1 style="text-align:left;" class="mt-2 mb-1">Orders</h1>
         <div id="info">
@@ -57,19 +60,25 @@
             <template v-slot:default>
               <thead>
                 <tr style="background-color:#984c6b1f;">
-                  <th style="width:15%;">Order no.</th>
-                  <th style="width:10%;">QTY</th>
+                  <th style="width:5%;">Order Number</th>
+                  <th style="width:35%">Customer</th>
+                  <th style="width:5%;">QTY</th>
                   <th style="width:35%;">Item</th>
-                  <th style="width:10%;">Price</th>
-                  <th style="width:10%;">Status</th>
-                  <th style="width:10%;">Archive</th>
-                  <th style="width:10%;">Remove</th>
+                  <th style="width:5%;">Price</th>
+                  <th style="width:5%;">Status</th>
+                  <th style="width:5%;">Archive</th>
+                  <th style="width:5%;">Remove</th>
                 </tr>
               </thead>
               <tbody class="font-weight-light">
                 <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
                 <tr v-for="item in orderItems" :key="item.name" v-if="item.archive == false">
                   <td>{{ item.orderNo }}</td>
+                  <td>
+                    <p>{{item.customer.name}}</p>
+                    <p>{{item.customer.address}}</p>
+                    <p>{{item.customer.zipcode}} {{item.customer.city}}</p>                 
+                  </td>
                   <td>
                     <p v-for="subitem in item.orderLines" :key="subitem.id">{{ subitem.quantity }}</p>
                   </td>
@@ -104,19 +113,21 @@
         </div>
       </v-col>
       <!-- Completed orders -->
-      <v-col offset-md="1" md="4">
+      <v-col offset-lg="1" offset-md="1" lg="5" md="5" sm="6" xs="6">
         <h1>Completed orders</h1>
         <v-simple-table id="menu-table" style="border-radius: 0;">
           <thead>
             <tr style="background-color:#984c6b1f;">
-              <th style="width:75%;">Order no.</th>
+              <th style="width:15%;">Order Number</th>
+              <th style="width:70%;">Customer</th>
               <th style="width:15%;">Remove</th>
             </tr>
           </thead>
           <tbody class="font-weight-light">
-               <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
-          <tr id="revenueList" v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
+            <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
+            <tr id="revenueList" v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
               <td class="pl-4">{{item.orderNo}}</td>
+              <td><p>{{item.customer.name}}</p></td>
               <td>
                 <v-btn small text @click="deleteOrderItem(item.id)">
                   <v-icon color="incomplete" style="text-align: right; opacity: 0.7;">delete</v-icon>
@@ -125,8 +136,10 @@
             </tr>
           </tbody>
         </v-simple-table>
-        <!-- Revenue -->
-        <h1 style="text-align:left;" class="mt-2 mb-1">Revenue</h1>
+      </v-col>
+      <!-- Revenue -->
+      <v-col lg="5" md="5" sm="6" xs="6">
+        <h1 style="text-align:left;" class="mb-1">Revenue</h1>
         <div id="info" class="pa-2">
           <div id="totalRevenue">
             <p id="totalRevenueText">

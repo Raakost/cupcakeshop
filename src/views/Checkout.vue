@@ -83,7 +83,6 @@
 
 
 <script>
-
 export default {
   data() {
     return {
@@ -96,12 +95,14 @@ export default {
   },
   methods: {
     checkout() {
-      this.$store.dispatch("setCheckoutItems", {
-        name: this.name,
-        address: this.address,
-        zipcode: this.zipcode,
-        city: this.city
-      });
+      if (this.tempBasket) {
+        this.$store.dispatch("setCheckoutItems", {
+          name: this.name,
+          address: this.address,
+          zipcode: this.zipcode,
+          city: this.city
+        });
+      }
     }
   },
   computed: {

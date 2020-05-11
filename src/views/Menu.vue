@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xs>
     <v-row>
-      <v-col offset-md="1" md="5">
+      <v-col offset-md="1" offset-lg="1" offset-sm="1" offset-xs="1" lg="5" md="10" sm="10" xs="10">    
         <h1>Cupcake Menu</h1>
         <div id="info">
           <v-simple-table id="menu-table">
@@ -37,8 +37,8 @@
             </template>
           </v-simple-table>
         </div>
-      </v-col>
-      <v-col offset-md="1" md="4">
+      </v-col>    
+        <v-col offset-md="1" offset-lg="1" offset-sm="1" offset-xs="1" lg="4" md="10" sm="10" xs="10">
         <h1>Basket</h1>
         <div id="info">
           <v-simple-table id="menu-table" v-if="basket.length > 0">

@@ -4,8 +4,8 @@
       {{ updatedText }}
       <v-btn color="pink" text @click="updatedSuccess = false">Close</v-btn>
     </v-snackbar>
-    <v-row>
-      <v-col offset-md="1" md="6">
+    <v-row>  
+        <v-col offset-md="1" offset-lg="1" offset-sm="1" offset-xs="1" lg="6" md="10" sm="10" xs="10">
         <h1 style="text-align: right;">
           <span></span>Cupcake menu
         </h1>
