@@ -1,60 +1,52 @@
 <template>
   <v-container grid-list-xs>
     <v-row class="info-box">
-      <v-col sm="4" xs="12">
+      <v-col offset-lg="1" offset-md="1" lg="5" md="5" sm="6">
         <h1>About us</h1>
       </v-col>
     </v-row>
     <v-row class="info-box">
-      <v-col xs="12" sm="3" md="3" v-for="item in aboutBoxes" v-bind:key="item.title">
-        <listbox style="white-space: pre-wrap;" v-bind:title="item.title" v-bind:list="item.list"></listbox>
+      <v-col offset-lg="1" offset-md="1" sm="12" md="3" lg="3">
+        <CompanyLocation style="white-space: pre-wrap;" v-bind:companyInfo="companyInfo"></CompanyLocation>
       </v-col>
+      <v-col sm="12" md="3" lg="3">
+        <Openinghours style="white-space: pre-wrap;" v-bind:openinghours="openingHours"></Openinghours>
+      </v-col>
+      <v-col sm="12" md="3" lg="3">about</v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-
-// eslint-disable-next-line no-unused-vars
-import Listbox from "../components/Listbox.vue";
+import Openinghours from "../components/public/Openinghours.vue";
+import CompanyLocation from "../components/public/CompanyLocation.vue";
 export default {
   data() {
     return {
-      aboutBoxes: [
-        {
-          title: "Location",
-          list: [
-            "Just Cupcakes a/s",
-            "Storegade 107",
-            "6700 Esbjerg",
-            "Denmark",
-            "Phone: 22334455",
-            "Mail: JC@mail.com"
-          ]
-        },
-        {
-          title: "Opening Hours",
-          list: [
-            "Monday: 07:00 - 17:00",
-            "Tuesday: 07:00 - 17:00",
-            "Wednesday: 07:00 - 17:00",
-            "Thursday: 07:00 - 17:00",
-            "Friday: 07:00 - 17:00",
-            "Saturday: 07:00 - 17:00",
-            "Sunday: closed"
-          ]
-        },
-        {
-          title: "Get in touch",
-          list: [
-            "Some about text here.. "
-          ]
-        }
-      ]
+      openingHours: [
+        "Monday: 07:00 - 17:00",
+        "Tuesday: 07:00 - 17:00",
+        "Wednesday: 07:00 - 17:00",
+        "Thursday: 07:00 - 17:00",
+        "Friday: 07:00 - 17:00",
+        "Saturday: 07:00 - 17:00",
+        "Sunday: closed"
+      ],
+      companyInfo: {
+        name: "Just Cupcakes a/s",
+        street: "Storegade 107",
+        zipcode: "6700",
+        city: "Esbjerg",
+        phone: "Phone: 22334455",
+        email: "Email: JC@mail.com"
+      },
+
+      about: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt, turpis a vehicula condimentum, augue arcu eleifend ex, in auctor orci turpis non enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam scelerisque ultrices. "]
     };
   },
   components: {
-    Listbox
+    Openinghours,
+    CompanyLocation
   }
 };
 </script>

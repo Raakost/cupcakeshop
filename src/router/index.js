@@ -9,8 +9,6 @@ import EditHome from '../views/EditHome.vue'
 import EditAbout from '../views/EditAbout.vue'
 import AddNewItems from '../components/admin/AddNewItems.vue'
 import Login from '../components/admin/Login.vue'
-import Infobox from '../components/Infobox.vue'
-import Listbox from '../components/Listbox.vue'
 
 import firebase from 'firebase'
 import 'firebase/firestore'
@@ -34,7 +32,7 @@ const router = new VueRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import( '../views/About.vue')
+      component: () => import('../views/About.vue')
     },
     {
       path: '/checkout',
@@ -73,16 +71,6 @@ const router = new VueRouter({
       meta: {
         requiresAuth: true
       }
-    },
-    {
-      path: '/infobox',
-      name: 'infobox',
-      component: Infobox
-    },
-    {
-      path: '/listbox',
-      name: 'listbox',
-      component: Listbox
     },
     {
       path: '/edithome',
