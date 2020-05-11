@@ -5,6 +5,7 @@
         <h1>Checkout</h1>
         <div id="info" class="pa-2">
           <v-col cols="12" sm="12" md="12">
+            <v-text-field required v-model="email" label="Email" placeholder="Email" outlined></v-text-field>
             <v-text-field required v-model="name" label="Name" placeholder="Name" outlined></v-text-field>
             <v-text-field
               required
@@ -87,7 +88,8 @@ export default {
   data() {
     return {
       tempBasket: [],
-      name: "",
+       email: "",
+       name: "",     
       address: "",
       zipcode: "",
       city: ""
@@ -97,7 +99,8 @@ export default {
     checkout() {
       if (this.tempBasket) {
         this.$store.dispatch("setCheckoutItems", {
-          name: this.name,
+          email: this.email,
+          name: this.name,         
           address: this.address,
           zipcode: this.zipcode,
           city: this.city

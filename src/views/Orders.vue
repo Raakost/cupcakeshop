@@ -74,10 +74,11 @@
                 <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
                 <tr v-for="item in orderItems" :key="item.name" v-if="item.archive == false">
                   <td>{{ item.orderNo }}</td>
-                  <td>
-                    <p>{{item.customer.name}}</p>
-                    <p>{{item.customer.address}}</p>
-                    <p>{{item.customer.zipcode}} {{item.customer.city}}</p>                 
+                  <td>                
+                    {{item.customer.name}}<br> 
+                    {{item.customer.address}}<br>
+                    {{item.customer.zipcode}} {{item.customer.city}}<br>
+                    {{item.customer.email}}             
                   </td>
                   <td>
                     <p v-for="subitem in item.orderLines" :key="subitem.id">{{ subitem.quantity }}</p>
@@ -126,8 +127,8 @@
           <tbody class="font-weight-light">
             <!-- eslint-disable-next-line vue/no-use-v-if-with-v-for -->
             <tr id="revenueList" v-for="item in orderItems" :key="item.name" v-if="item.archive == true">
-              <td class="pl-4">{{item.orderNo}}</td>
-              <td><p>{{item.customer.name}}</p></td>
+              <td>{{item.orderNo}}</td>
+              <td>{{item.customer.name}}</td>
               <td>
                 <v-btn small text @click="deleteOrderItem(item.id)">
                   <v-icon color="incomplete" style="text-align: right; opacity: 0.7;">delete</v-icon>
