@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Infobox from "../components/Infobox.vue";
+import Infobox from "../components/public/Infobox.vue";
 export default {
   data() {
     return {
@@ -39,7 +39,6 @@ export default {
       ]
     };
   },
-  name: "Home",
   components: {
     Infobox
   }

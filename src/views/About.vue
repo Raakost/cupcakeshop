@@ -7,30 +7,33 @@
     </v-row>
     <v-row class="info-box">
       <v-col offset-lg="1" offset-md="1" sm="12" md="3" lg="3">
-        <CompanyLocation style="white-space: pre-wrap;" v-bind:companyInfo="companyInfo"></CompanyLocation>
+        <CompanyInfo v-bind:companyInfo="companyInfo" v-bind:title="title"></CompanyInfo>
       </v-col>
       <v-col sm="12" md="3" lg="3">
-        <Openinghours style="white-space: pre-wrap;" v-bind:openinghours="openingHours"></Openinghours>
+        <Openinghours v-bind:openinghours="openingHours" v-bind:title="title"></Openinghours>
       </v-col>
-      <v-col sm="12" md="3" lg="3">about</v-col>
+      <v-col sm="12" md="3" lg="3">
+        <About v-bind:about="about" v-bind:title="title"></About>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import Openinghours from "../components/public/Openinghours.vue";
-import CompanyLocation from "../components/public/CompanyLocation.vue";
+import CompanyInfo from "../components/public/CompanyInfo.vue";
+import About from "../components/public/About.vue";
 export default {
   data() {
     return {
       openingHours: [
-        "Monday: 07:00 - 17:00",
-        "Tuesday: 07:00 - 17:00",
-        "Wednesday: 07:00 - 17:00",
-        "Thursday: 07:00 - 17:00",
-        "Friday: 07:00 - 17:00",
-        "Saturday: 07:00 - 17:00",
-        "Sunday: closed"
+        "Mon  07:00 - 17:00",
+        "Tue  07:00 - 17:00",
+        "Wed  07:00 - 17:00",
+        "Thu  07:00 - 17:00",
+        "Fri  07:00 - 17:00",
+        "Sat  07:00 - 14:00",
+        "Sun  07:00 - 14:00"
       ],
       companyInfo: {
         name: "Just Cupcakes a/s",
@@ -41,12 +44,16 @@ export default {
         email: "Email: JC@mail.com"
       },
 
-      about: ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt, turpis a vehicula condimentum, augue arcu eleifend ex, in auctor orci turpis non enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam scelerisque ultrices. "]
+      about: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt, turpis a vehicula condimentum, augue arcu eleifend ex, in auctor orci turpis non enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam scelerisque ultrices. "
+      }
     };
   },
   components: {
     Openinghours,
-    CompanyLocation
+    CompanyInfo,
+    About
   }
 };
 </script>

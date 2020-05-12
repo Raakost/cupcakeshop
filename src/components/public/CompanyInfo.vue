@@ -1,10 +1,14 @@
 <template>
   <div>
-    <h1 style="text-align:center;">Opening Hours</h1>
+    <h1 style="text-align:right;">Location</h1>
     <div class="info-div">
       <ul style="list-style: none; padding-left: 0; text-align: center;">
         <div style="display: inline-block; text-align: left; padding: 10px;">
-          <li v-for="item in openinghours" v-bind:key="item">{{item}}</li>
+          <li>{{companyInfo.name}}</li>
+          <li>{{companyInfo.street}}</li>
+          <li>{{companyInfo.zipcode}} {{companyInfo.city}}</li>
+          <li>{{companyInfo.phone}}</li>
+          <li>{{companyInfo.email}}</li>
         </div>
       </ul>
     </div>
@@ -13,9 +17,10 @@
 
 <script>
 export default {
-  props: ["openinghours"]
+  props: ["companyInfo"]
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>
