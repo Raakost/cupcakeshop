@@ -3,8 +3,8 @@
     <h1 style="text-align:right;">Location</h1>
     <div class="info-div">
       <ul style="list-style: none; padding-left: 0; text-align: center;">
-        <div style="display: inline-block; text-align: left; padding: 10px;">
-          <li>{{companyInfo.name}}</li>
+        <div v-if="companyInfo" style="display: inline-block; text-align: left; padding: 10px;">
+          <li>Just Cupcakes a/s</li>
           <li>{{companyInfo.street}}</li>
           <li>{{companyInfo.zipcode}} {{companyInfo.city}}</li>
           <li>{{companyInfo.phone}}</li>

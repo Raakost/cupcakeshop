@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { dbMenuAdd, db, dbOrders } from '../../firebase'
+import { dbMenuAdd, db, dbOrders, dbCompanyInfo } from '../../firebase'
 import firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -13,7 +13,8 @@ export default new Vuex.Store({
     basketItems: [],
     menuItems: [],
     orderItems: [],
-    currentUser: null
+    currentUser: null,
+    companyInfo: {}
   },
   mutations: {
     addCheckoutItems: (state, customer) => {
@@ -52,9 +53,9 @@ export default new Vuex.Store({
     setMenuItems: state => {
       let menuItems = []
 
-      dbMenuAdd.onSnapshot((snapshopItems) => {
+      dbMenuAdd.onSnapshot((snapshotItems) => {
         menuItems = []
-        snapshopItems.forEach((doc) => {
+        snapshotItems.forEach((doc) => {
           var menuItemData = doc.data();
           menuItems.push({
             ...menuItemData,
@@ -67,9 +68,9 @@ export default new Vuex.Store({
     setOrderItems: state => {
       let orderItems = []
 
-      dbOrders.onSnapshot((snapshopItems) => {
+      dbOrders.onSnapshot((snapshotItems) => {
         orderItems = []
-        snapshopItems.forEach((doc) => {
+        snapshotItems.forEach((doc) => {
           var orderItemData = doc.data();
           orderItems.push({
             ...orderItemData,
@@ -77,6 +78,24 @@ export default new Vuex.Store({
           })
         })
         state.orderItems = orderItems
+      })
+    },
+    updateCompanyInfo: (state, companyInfo) => {
+      dbCompanyInfo.get().then((items) => {
+        if (items.size > 0) {
+          var companyInfoId = items.docs[0].id;
+          dbCompanyInfo
+            .doc(companyInfoId)
+            .update(companyInfo);
+        } else {
+          dbCompanyInfo.add(companyInfo);
+        }
+      })
+    },
+    setCompanyInfo: state => {
+      dbCompanyInfo.onSnapshot((snapshotItems) => {
+        var companyInfo = snapshotItems.docs[0].data();
+        state.companyInfo = { ...companyInfo, id: snapshotItems.docs[0].id }
       })
     }
   },
@@ -92,6 +111,12 @@ export default new Vuex.Store({
     },
     setOrderItems: context => {
       context.commit('setOrderItems')
+    },
+    updateCompanyInfo: (context, companyInfo) => {
+      context.commit('updateCompanyInfo', companyInfo)
+    },
+    setCompanyInfo: context => {
+      context.commit('setCompanyInfo')
     }
   },
   modules: {
@@ -100,7 +125,8 @@ export default new Vuex.Store({
     getBasketItems: state => state.basketItems,
     getCurrentUser: state => state.currentUser,
     getMenuItems: state => state.menuItems,
-    getOrderItems: state => state.orderItems
+    getOrderItems: state => state.orderItems,
+    getCompanyInfo: state => state.companyInfo
   }
 
 })

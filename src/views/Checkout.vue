@@ -88,8 +88,8 @@ export default {
   data() {
     return {
       tempBasket: [],
-       email: "",
-       name: "",     
+      email: "",
+      name: "",
       address: "",
       zipcode: "",
       city: ""
@@ -100,7 +100,7 @@ export default {
       if (this.tempBasket) {
         this.$store.dispatch("setCheckoutItems", {
           email: this.email,
-          name: this.name,         
+          name: this.name,
           address: this.address,
           zipcode: this.zipcode,
           city: this.city
@@ -129,43 +129,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.col h1 {
-  @include infobox_mixin(
-    3px,
-    map-get($colorz, white),
-    10px,
-    5px,
-    map-get($colorz, lightgrey)
-  );
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 200;
-  text-align: right;
-  background-color: map-get($colorz, secondary);
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-}
-.col:last-child h1 {
-  @include infobox_mixin(
-    3px,
-    map-get($colorz, white),
-    10px,
-    5px,
-    map-get($colorz, lightgrey)
-  );
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 200;
-  text-align: left;
-  background-color: map-get($colorz, secondary);
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-}
-
-#info {
-  background-color: white;
-}
-
 tr th {
   font-size: 16px;
   font-family: "Lato", sans-serif;
@@ -189,19 +152,6 @@ tr td {
   font-family: "Lato", sans-serif;
 }
 
-#td_description {
-  font-style: italic;
-  font-weight: 200;
-  color: map-get($colorz, lightgrey);
-  font-family: "Lato", sans-serif;
-}
-
-#td_image {
-  max-width: 120px;
-  max-height: 120px;
-  padding: 0;
-}
-
 .theme--light.v-data-table
   tbody
   tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
@@ -214,10 +164,5 @@ tr td {
 
 #basket_checkout p:first-child {
   line-height: 0.1rem;
-}
-
-.basket_btn {
-  color: #56cac2 !important;
-  caret-color: #56cac2 !important;
 }
 </style>
