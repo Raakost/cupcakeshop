@@ -206,16 +206,6 @@ export default {
           console.log(error);
         });
     },
-
-    increase(item) {
-      item.quantity++;
-    },
-    decrease(item) {
-      item.quantity--;
-      if (item.quantity <= 0) {
-        this.basket.splice(this.basket.indexOf(item), 1);
-      }
-    }
   },
   computed: {
     basket() {
@@ -274,9 +264,6 @@ export default {
   font-family: "Lato", sans-serif;
 }
 
-#info {
-  background-color: white;
-}
 
 tr th {
   font-size: 12px;
@@ -295,26 +282,11 @@ tr th:last-child {
   height: 46px;
 }
 
-tr td {
-  padding: 10px 10px 10px 12px;
-  font-family: "Lato", sans-serif;
-}
-
-#td_description {
-  font-style: italic;
-  font-weight: 200;
-  color: map-get($colorz, lightgrey);
-  font-family: "Lato", sans-serif;
-}
 
 .theme--light.v-data-table
   tbody
   tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
   background: #984c6b1f;
-}
-
-#basket_checkout {
-  font-family: "Lato", sans-serif;
 }
 
 #status_box {

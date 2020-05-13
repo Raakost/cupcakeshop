@@ -55,9 +55,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gfh {
-  font-size: 12px;
-  min-height: 40px;
-  max-height: 40px;
-}
+
 </style>t
